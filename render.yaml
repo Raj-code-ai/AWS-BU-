@@ -39,8 +39,8 @@ services:
       - key: CLOUDINARY_API_SECRET
         sync: false
       - key: FRONTEND_URL
-        sync: false
+        value: https://main.d1tyeqr6zyxtxk.amplifyapp.com
       - key: CORS_ORIGINS
-        sync: false
+        value: https://main.d1tyeqr6zyxtxk.amplifyapp.com,https://*.amplifyapp.com
       - key: API_BASE_URL
         sync: false
