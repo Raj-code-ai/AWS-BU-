@@ -59,14 +59,14 @@ npm run dev                    # :3011
 
 Change these in production. Production rejects insecure default JWT/CSRF secrets.
 
-## Deploy (GitHub → Render + Vercel)
+## Deploy (GitHub → Amplify + API)
 
 See **[docs/deployment/DEPLOYMENT_NOTES.md](docs/deployment/DEPLOYMENT_NOTES.md)**.
 
 | Host | Root | Notes |
 |------|------|--------|
-| **Render** (API) | `backend` | Set `MONGODB_URI`, JWT/CSRF, Cloudinary, then `FRONTEND_URL` / `CORS_ORIGINS` to Vercel URL |
-| **Vercel** (UI) | `frontend` | Set `VITE_API_BASE_URL=https://YOUR-API.onrender.com/api/v1`; uses `vercel.json` SPA rewrites |
+| **Amplify** (UI) | repo root | `amplify.yml` builds `frontend/`. Set `VITE_API_BASE_URL`. Add SPA rewrite `/<*>` → `/index.html` (`404-200`). App `dh014mymg99rf`, region `ap-southeast-2`. |
+| **Render** (API) | `backend` | Set `MONGODB_URI`, JWT/CSRF, Cloudinary, then `FRONTEND_URL` / `CORS_ORIGINS` to the Amplify URL |
 
 Live API example: `https://bu-papers-ready.onrender.com/api/v1/health`
 

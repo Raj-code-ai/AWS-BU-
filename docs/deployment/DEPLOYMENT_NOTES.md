@@ -1,4 +1,4 @@
-# Deployment — GitHub → Render (API) + Vercel (frontend)
+# Deployment — GitHub → Amplify (frontend) + Render (API)
 
 Repo: https://github.com/Raj-code-ai/Bu-Papers-Ready_
 
@@ -42,7 +42,35 @@ API_BASE_URL=https://bu-papers-ready.onrender.com
 
 Optional: `render.yaml` at repo root for Blueprint deploys.
 
-## 3. Vercel (frontend)
+## 3. AWS Amplify (frontend)
+
+App (reference): `dh014mymg99rf` in `ap-southeast-2`.  
+Repo root build spec: `amplify.yml` (installs and builds `frontend/`, publishes `frontend/dist`).
+
+In the Amplify app, set this **before** the build. Vite bakes it into the bundle:
+
+```env
+VITE_API_BASE_URL=https://YOUR-API.onrender.com/api/v1
+```
+
+Hosting → Rewrites and redirects. Add this SPA rule so `/login` and `/admin` load:
+
+| Source | Target | Type |
+|--------|--------|------|
+| `/<*>` | `/index.html` | `404-200` |
+
+Connect the branch from **https://github.com/Raj-code-ai/AWS-BU-**. Do not point this app at the older Bu-Papers-Ready repository.
+
+On the API, allow the Amplify domain (no trailing slash):
+
+```env
+FRONTEND_URL=https://main.dh014mymg99rf.amplifyapp.com
+CORS_ORIGINS=https://main.dh014mymg99rf.amplifyapp.com,https://*.amplifyapp.com
+```
+
+`https://*.amplifyapp.com` covers the default Amplify branch URLs. Redeploy Amplify after any `VITE_*` change.
+
+## 4. Vercel (frontend, optional)
 
 1. Import the same GitHub repo.
 2. Settings:
@@ -58,11 +86,11 @@ Live frontend example: `https://bu-papers-ready-jlgx.vercel.app`
 
 Redeploy Vercel after changing `VITE_*` (build-time vars).
 
-## 4. Cloudinary
+## 5. Cloudinary
 
 Settings → Security → enable **Allow delivery of PDF and ZIP files**.
 
-## 5. First login / seed
+## 6. First login / seed
 
 On first DB connect, bootstrap Super Admin may be created from env:
 
@@ -83,10 +111,10 @@ Default local bootstrap (change in production):
 - Super Admin: `superadmin@arms.local` / `ChangeMe!SuperAdmin1`
 - Admin: `admin@arms.local` / `ChangeMe!Admin1`
 
-## 6. Verify
+## 7. Verify
 
 - `GET https://YOUR-API.onrender.com/api/v1/health` → `status: ok`, DB connected
-- Open Vercel site → `/login` loads (not Vercel NOT_FOUND)
+- Open the Amplify site → `/login` loads (not an Amplify 404)
 - Login works (CORS + API URL correct)
 - Upload PDF → view/download works (Cloudinary PDF delivery enabled)
 

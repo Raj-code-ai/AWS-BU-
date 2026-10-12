@@ -19,6 +19,12 @@ describe('cors origin matching', () => {
     ).toBe(true);
   });
 
+  test('allows Amplify Hosting domains via wildcard', () => {
+    const allowed = ['https://*.amplifyapp.com'];
+    expect(isAllowedOrigin('https://main.dh014mymg99rf.amplifyapp.com', allowed)).toBe(true);
+    expect(isAllowedOrigin('https://evil.example.com', allowed)).toBe(false);
+  });
+
   test('blocks unknown origins', () => {
     const allowed = ['https://bu-papers-ready-jlgx.vercel.app'];
     expect(isAllowedOrigin('https://evil.example.com', allowed)).toBe(false);

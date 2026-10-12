@@ -8,6 +8,16 @@ function normalizeOrigin(value) {
     .replace(/\/+$/, '');
 }
 
+function matchesHttpsHostSuffix(rule, normalized, suffix) {
+  if (rule !== `https://*.${suffix}` && rule !== `*.${suffix}`) return false;
+  try {
+    const url = new URL(normalized);
+    return url.protocol === 'https:' && url.hostname.endsWith(`.${suffix}`);
+  } catch (_) {
+    return false;
+  }
+}
+
 function isAllowedOrigin(origin, allowedList) {
   const normalized = normalizeOrigin(origin);
   if (!normalized) return false;
@@ -18,17 +28,9 @@ function isAllowedOrigin(origin, allowedList) {
 
     if (rule === normalized) return true;
 
-    // Support https://*.vercel.app so all Vercel production/preview URLs work.
-    if (rule === 'https://*.vercel.app' || rule === '*.vercel.app') {
-      try {
-        const url = new URL(normalized);
-        if (url.protocol === 'https:' && url.hostname.endsWith('.vercel.app')) {
-          return true;
-        }
-      } catch (_) {
-        // ignore invalid origin
-      }
-    }
+    // Host wildcards for preview and production frontends.
+    if (matchesHttpsHostSuffix(rule, normalized, 'vercel.app')) return true;
+    if (matchesHttpsHostSuffix(rule, normalized, 'amplifyapp.com')) return true;
   }
 
   return false;
