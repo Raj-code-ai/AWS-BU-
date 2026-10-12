@@ -1,4 +1,4 @@
-import { resolveApiBaseUrl } from './api';
+import { resolveApiBaseUrl } from '../services/api';
 
 const PING_MS = 4 * 60 * 1000;
 
