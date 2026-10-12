@@ -63,11 +63,11 @@ export default function HomePage() {
                 <img src={branding.logoUrl} alt="" className="h-14 w-14 rounded bg-white/10 object-contain p-1" />
               ) : null}
               <p className="font-display text-4xl font-bold tracking-tight md:text-6xl">
-                {branding.institutionName}
+                {branding.institutionName || 'Question Papers'}
               </p>
             </div>
             <h1 className="max-w-2xl font-display text-2xl font-semibold md:text-3xl">
-              {branding.tagline}
+              {branding.tagline || 'Published question papers for students'}
             </h1>
             <p className="max-w-xl text-base text-sand-100/85">
               Search and download published question papers for your department, programme, semester, and subject.

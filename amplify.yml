@@ -1,4 +1,7 @@
 version: 1
+env:
+  variables:
+    VITE_API_BASE_URL: https://bu-papers-ready.onrender.com/api/v1
 frontend:
   phases:
     preBuild:

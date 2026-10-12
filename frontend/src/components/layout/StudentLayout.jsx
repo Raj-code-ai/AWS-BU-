@@ -48,7 +48,7 @@ export default function StudentLayout() {
   const footerLinkClass =
     'hover:text-moss-500 focus:outline-none focus:ring-2 focus:ring-moss-300 rounded-sm';
 
-  const displayName = branding.institutionName || branding.siteName || branding.shortName || '';
+  const displayName = branding.institutionName || branding.siteName || branding.shortName || 'Question Papers';
 
   return (
     <div className="min-h-screen">
