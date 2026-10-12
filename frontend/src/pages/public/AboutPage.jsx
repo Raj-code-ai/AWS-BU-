@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useInstitution } from '../../store/InstitutionContext';
-import { ErrorState, LoadingSkeleton } from '../../components/common/States';
+import { LoadingSkeleton } from '../../components/common/States';
 
 const WHY_CARDS = [
   {
@@ -63,8 +63,8 @@ const STEPS = [
 ];
 
 export default function AboutPage() {
-  const { branding, loading, error } = useInstitution();
-  const institutionName = branding.institutionName || '[Institution Name]';
+  const { branding, loading } = useInstitution();
+  const institutionName = branding.institutionName || 'Question Papers';
 
   useEffect(() => {
     document.title = `About | ${institutionName}`;
@@ -79,7 +79,6 @@ export default function AboutPage() {
   }, [institutionName]);
 
   if (loading) return <LoadingSkeleton rows={6} />;
-  if (error) return <ErrorState message={error} />;
 
   return (
     <div className="space-y-12 md:space-y-16">
