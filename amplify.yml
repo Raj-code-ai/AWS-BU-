@@ -3,12 +3,9 @@ frontend:
   phases:
     preBuild:
       commands:
-        - nvm install 22
-        - nvm use 22
-        - cd frontend && npm ci
+        - cd frontend && npm ci --engine-strict=false
     build:
       commands:
-        - nvm use 22
         - cd frontend && npm run build
   artifacts:
     baseDirectory: frontend/dist
