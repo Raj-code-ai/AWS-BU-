@@ -47,7 +47,7 @@ Optional: `render.yaml` at repo root for Blueprint deploys.
 Region: `ap-southeast-2`.  
 Repository: **https://github.com/Raj-code-ai/AWS-BU-**, branch **main**.
 
-Create a new Amplify app and let it use `amplify.yml` from the repository. Do not type a separate build command. That file installs `frontend/`, runs the Vite build, and publishes the `dist` folder at the repository root.
+Create a new Amplify app and let it use `amplify.yml` from the repository. Do not paste an older build spec. The file installs from the repository root, builds the React app, and publishes `dist`.
 
 In the Amplify app, set this **before** the build. Vite bakes it into the bundle:
 
