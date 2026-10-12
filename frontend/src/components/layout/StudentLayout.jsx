@@ -103,7 +103,6 @@ export default function StudentLayout() {
       </header>
 
       <main className="mx-auto max-w-6xl px-4 py-8">
-        {loading ? <div className="sr-only" aria-live="polite">Updating institution settings</div> : null}
         <Outlet />
       </main>
 
