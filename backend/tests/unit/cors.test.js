@@ -19,9 +19,13 @@ describe('cors origin matching', () => {
     ).toBe(true);
   });
 
-  test('allows Amplify Hosting domains even when they are not listed', () => {
-    expect(isAllowedOrigin('https://main.d1tyeqr6zyxtxk.amplifyapp.com', [])).toBe(true);
-    expect(isAllowedOrigin('https://evil.example.com', [])).toBe(false);
+  test('blocks Amplify Hosting domains unless they are configured', () => {
+    expect(isAllowedOrigin('https://main.d1tyeqr6zyxtxk.amplifyapp.com', [])).toBe(false);
+    expect(
+      isAllowedOrigin('https://main.d1tyeqr6zyxtxk.amplifyapp.com', [
+        'https://main.d1tyeqr6zyxtxk.amplifyapp.com',
+      ])
+    ).toBe(true);
   });
 
   test('allows Amplify Hosting domains via wildcard', () => {

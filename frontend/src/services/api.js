@@ -1,8 +1,16 @@
 import axios from 'axios';
 
 export function resolveApiBaseUrl() {
-  const raw = String(import.meta.env.VITE_API_BASE_URL || 'http://localhost:3008/api/v1').trim();
-  const trimmed = raw.replace(/\/+$/, '');
+  const configured = String(import.meta.env.VITE_API_BASE_URL || '').trim();
+  if (!configured) {
+    if (import.meta.env.PROD) {
+      throw new Error(
+        'VITE_API_BASE_URL is missing. Set it to the production API base, including /api/v1, before building.'
+      );
+    }
+    return 'http://localhost:3008/api/v1';
+  }
+  const trimmed = configured.replace(/\/+$/, '');
   if (trimmed.endsWith('/api/v1')) return trimmed;
   return `${trimmed}/api/v1`;
 }

@@ -4,8 +4,10 @@ const dotenv = require('dotenv');
 const rootEnv = path.resolve(__dirname, '../../../.env');
 const localEnv = path.resolve(__dirname, '../../.env');
 
-dotenv.config({ path: rootEnv });
-dotenv.config({ path: localEnv, override: true });
+const productionBoot = process.env.NODE_ENV === 'production';
+// In production the host's environment wins. A local .env may only fill missing keys.
+dotenv.config({ path: rootEnv, override: false });
+dotenv.config({ path: localEnv, override: !productionBoot });
 
 function requiredInProduction(key, value) {
   if (process.env.NODE_ENV === 'production' && !value) {

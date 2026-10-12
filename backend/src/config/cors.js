@@ -18,19 +18,9 @@ function matchesHttpsHostSuffix(rule, normalized, suffix) {
   }
 }
 
-function isAmplifyHostingOrigin(normalized) {
-  try {
-    const url = new URL(normalized);
-    return url.protocol === 'https:' && url.hostname.endsWith('.amplifyapp.com');
-  } catch (_) {
-    return false;
-  }
-}
-
 function isAllowedOrigin(origin, allowedList) {
   const normalized = normalizeOrigin(origin);
   if (!normalized) return false;
-  if (isAmplifyHostingOrigin(normalized)) return true;
 
   for (const raw of allowedList) {
     const rule = normalizeOrigin(raw);

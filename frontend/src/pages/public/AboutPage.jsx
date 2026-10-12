@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useInstitution } from '../../store/InstitutionContext';
-import { LoadingSkeleton } from '../../components/common/States';
+import { ErrorState, LoadingSkeleton } from '../../components/common/States';
 
 const WHY_CARDS = [
   {
@@ -63,7 +63,7 @@ const STEPS = [
 ];
 
 export default function AboutPage() {
-  const { branding, loading } = useInstitution();
+  const { branding, loading, error } = useInstitution();
   const institutionName = branding.institutionName || 'Question Papers';
 
   useEffect(() => {
@@ -82,6 +82,7 @@ export default function AboutPage() {
 
   return (
     <div className="space-y-12 md:space-y-16">
+      {error ? <ErrorState message={error} /> : null}
       <header className="reveal-up relative overflow-hidden rounded-2xl border border-ink-700/10 bg-gradient-to-br from-moss-500/15 via-grain/10 to-leaf/10 p-8 dark:border-white/10 dark:from-moss-500/20 dark:via-grain/10 dark:to-ink-950 md:p-12">
         <p className="text-sm font-semibold uppercase tracking-wide text-moss-500">About {institutionName}</p>
         <h1 className="mt-3 max-w-2xl font-display text-3xl font-semibold text-ink-900 dark:text-sand-50 md:text-4xl">
