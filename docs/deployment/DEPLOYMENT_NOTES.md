@@ -44,8 +44,10 @@ Optional: `render.yaml` at repo root for Blueprint deploys.
 
 ## 3. AWS Amplify (frontend)
 
-App (reference): `dh014mymg99rf` in `ap-southeast-2`.  
-Repo root build spec: `amplify.yml` (installs and builds `frontend/`, publishes `frontend/dist`).
+Region: `ap-southeast-2`.  
+Repository: **https://github.com/Raj-code-ai/AWS-BU-**, branch **main**.
+
+Create a new Amplify app and let it use `amplify.yml` from the repository. Do not type a separate build command. That file installs `frontend/`, runs the Vite build, and publishes the `dist` folder at the repository root.
 
 In the Amplify app, set this **before** the build. Vite bakes it into the bundle:
 
@@ -53,13 +55,11 @@ In the Amplify app, set this **before** the build. Vite bakes it into the bundle
 VITE_API_BASE_URL=https://YOUR-API.onrender.com/api/v1
 ```
 
-Hosting → Rewrites and redirects. Add this SPA rule so `/login` and `/admin` load:
+Hosting → Rewrites and redirects. Add the rule from `customRules.json` so `/login` and `/admin` load:
 
 | Source | Target | Type |
 |--------|--------|------|
 | `/<*>` | `/index.html` | `404-200` |
-
-Connect the branch from **https://github.com/Raj-code-ai/AWS-BU-**. Do not point this app at the older Bu-Papers-Ready repository.
 
 On the API, allow the Amplify domain (no trailing slash):
 

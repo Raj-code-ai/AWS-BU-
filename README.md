@@ -65,7 +65,7 @@ See **[docs/deployment/DEPLOYMENT_NOTES.md](docs/deployment/DEPLOYMENT_NOTES.md)
 
 | Host | Root | Notes |
 |------|------|--------|
-| **Amplify** (UI) | repo root | `amplify.yml` builds `frontend/`. Set `VITE_API_BASE_URL`. Add SPA rewrite `/<*>` → `/index.html` (`404-200`). App `dh014mymg99rf`, region `ap-southeast-2`. |
+| **Amplify** (UI) | repo root | Connect `main` on `Raj-code-ai/AWS-BU-`. `amplify.yml` builds the site into `dist`. Set `VITE_API_BASE_URL`. Add the rewrite in `customRules.json`. Region `ap-southeast-2`. |
 | **Render** (API) | `backend` | Set `MONGODB_URI`, JWT/CSRF, Cloudinary, then `FRONTEND_URL` / `CORS_ORIGINS` to the Amplify URL |
 
 Live API example: `https://bu-papers-ready.onrender.com/api/v1/health`
